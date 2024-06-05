@@ -26,15 +26,23 @@
         </form>
       </header>
       <main>
-        <div>
-          <h1>Berlin</h1>
-          <p>
-            Wednesday 15:00, scattered clouds
-            <br />
-            Humidity: 66%, Wind: 3.13 km/h
-          </p>
+        <div class="weather-app-data">
+          <div>
+            <h1 class="weather-app-city">Berlin</h1>
+            <p class="weather-app-details">
+              Wednesday 15:00, scattered clouds
+              <br />
+              Humidity:
+              <span class="weather-app-numbers" id="humidity">66%</span>, Wind:
+              <span class="weather-app-numbers" id="wind">3.13 km/h</span>
+            </p>
+          </div>
+          <div class="temperature-container">
+            <div class="weather-app-icon">⛅</div>
+            <div class="weather-app-temperature">12</div>
+            <div class="weather-app-unit">°C</div>
+          </div>
         </div>
-        <div>⛅ 12°C</div>
       </main>
 
       <footer>
