@@ -108,10 +108,26 @@ a {
 }
 
 .weather-forecast-temperatures {
-  font-size: 13px;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
 }
 
 .weather-forecast-date,
 .weather-forecast-temperature-minimum {
   opacity: 0.5;
+}
+
+.weather-forecast-temperature-maximum,
+.weather-forecast-temperature-minimum {
+  padding: 5px 5px;
+  text-align: center;
+}
+
+.weather-forecast-icon {
+  display: block;
+  margin: 0 auto;
+  width: 80px;
+  height: 80px;
+  padding: 10px 0;
 }

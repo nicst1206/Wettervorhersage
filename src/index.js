@@ -23,7 +23,6 @@ function formatDate(date) {
 }
 
 function updateWeatherData(response) {
-  console.log(response);
   let cityElement = document.querySelector("#city");
   let temperatureElement = document.querySelector("#current-temperature");
   let descriptionElement = document.querySelector("#description");
@@ -58,6 +57,13 @@ function initiateSearch(event) {
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", initiateSearch);
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+  return days[date.getDay()];
+}
+
 function getForecast(city) {
   let apiKey = "obbt00a19b0447e3fbfabf89040f3c88";
   let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
@@ -65,25 +71,29 @@ function getForecast(city) {
 }
 
 function displayForecast(response) {
-  console.log(response.data);
-  let days = ["Tue", "Wed", "Thur", "Fri", "Sat"];
   let forecastHtml = "";
 
-  days.forEach(function (day) {
-    forecastHtml =
-      forecastHtml +
-      `
+  response.data.daily.forEach(function (day, index) {
+    if (index < 5) {
+      forecastHtml =
+        forecastHtml +
+        `
       <div class="weather-forecast-day">
-    <div class="weather-forecast-date">${day}</div>
+    <div class="weather-forecast-date">${formatDay(day.time)}</div>
     <div class="weather-forecast-icon">
-      <img />
+      <img src="${day.condition.icon_url}"/>
     </div>
     <div class="weather-forecast-temperatures">
-      <span class="weather-forecast-temperature-maximum">18°</span>
-      <span class="weather-forecast-temperature-minimum"> 12°</span>
+      <div class="weather-forecast-temperature-maximum">${Math.round(
+        day.temperature.maximum
+      )}°C  </div>
+      <div class="weather-forecast-temperature-minimum"> ${Math.round(
+        day.temperature.minimum
+      )}°C</div>
     </div>
   </div>
   `;
+    }
   });
 
   forecastElement.innerHTML = forecastHtml;
