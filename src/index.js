@@ -40,6 +40,7 @@ function updateWeatherData(response) {
   humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
   timeElement.innerHTML = formatDate(date);
   iconElement.innerHTML = `<img src=${response.data.condition.icon_url} class="weather-app-icon" />`;
+  getForecast(response.data.city);
 }
 
 function searchCity(city) {
@@ -57,9 +58,14 @@ function initiateSearch(event) {
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", initiateSearch);
 
-searchCity("Berlin");
+function getForecast(city) {
+  let apiKey = "obbt00a19b0447e3fbfabf89040f3c88";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
 
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response.data);
   let days = ["Tue", "Wed", "Thur", "Fri", "Sat"];
   let forecastHtml = "";
 
@@ -84,4 +90,5 @@ function displayForecast() {
 }
 
 let forecastElement = document.querySelector("#forecast");
-displayForecast();
+searchCity("Berlin");
+getForecast("Berlin");
